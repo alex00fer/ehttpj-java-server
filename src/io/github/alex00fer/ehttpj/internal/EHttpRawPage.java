@@ -41,28 +41,23 @@ public abstract class EHttpRawPage implements HttpHandler {
 		//System.out.println(he.getRequestURI().getRawPath());
 		try {
 			// Read request values
-			EHttpExchange values = new EHttpExchange();
-			values.underExchange = he; // set the pure exchange
-			// 1. Read http headers
-			Headers headers = he.getRequestHeaders();
-			values.headers = headers;
+			// 1. Create the exchange object with access to the http headers
+			EHttpExchange exchange = new EHttpExchange(he); // passes the original httpexchange
 			// 2. Read GET parameters
 			URI requestedUri = he.getRequestURI();
             String query = requestedUri.getRawQuery();
-            parseQuery(query, values.get);
+            parseQuery(query, exchange.get);
             // 3. Read POST parameters
             InputStreamReader isr = new InputStreamReader(he.getRequestBody(), "utf-8");
             BufferedReader br = new BufferedReader(isr);
             query = br.readLine();
-            parseQuery(query, values.post);
+            parseQuery(query, exchange.post);
 
 			// Fill stream and prepare headers
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			response(outputStream, values); // calls abstract response method
-			he.sendResponseHeaders(values.responseCode, outputStream.size());
-			he.getResponseHeaders().put("Content-Type", values.responseContentType); 
-
+			response(outputStream, exchange); // calls abstract response method
+			he.sendResponseHeaders(exchange.responseCode, outputStream.size());
 			// Write to the final output response stream
 
 			OutputStream stream = he.getResponseBody();

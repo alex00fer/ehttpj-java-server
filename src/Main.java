@@ -71,6 +71,9 @@ public class Main {
 				doc.add(link);
 				doc.add(list);
 				doc.add(table);
+				
+				values.setRedirect("/raw");
+				
 				return doc;
 			}
 		});

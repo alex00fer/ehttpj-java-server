@@ -22,18 +22,24 @@ import com.sun.net.httpserver.HttpExchange;
  * Use setContentType() to change the MIME of the response (text/html by default).<br>
  * Use setResponseCode() to change the responsee code (200 by default).<br>
  * 
- * 
+ * If you want to redirect the user to another location use setRedirect(url)
  */
 public class EHttpExchange {
 	protected HttpExchange underExchange;
-	protected Headers headers;
+	protected Headers requestHeaders;
+	protected Headers responseHeaders;
 	protected Map<String, Object> get = new HashMap<String, Object>();
 	protected Map<String, Object> post = new HashMap<String, Object>();
 	protected List<String> responseContentType = new ArrayList<String>();
-	protected int responseCode = 200;
+	protected int responseCode;
 	
-	public EHttpExchange() {
-		responseContentType.add("text/html"); // default content type
+	public EHttpExchange(HttpExchange underExchange) {
+		this.underExchange = underExchange;
+		this.requestHeaders = underExchange.getRequestHeaders();
+		this.responseHeaders = underExchange.getResponseHeaders();
+		
+		setContentType("text/html"); // default content type
+		responseCode = 200; // default response code
 	}
 	
 	public String get (String key) {
@@ -51,8 +57,6 @@ public class EHttpExchange {
 		return post.containsKey(name);
 	}
 	
-	
-	
 	public Map<String, Object> getAll() {
 		return get;
 	}
@@ -69,16 +73,25 @@ public class EHttpExchange {
 	}
 	
 	public String headerFirst(String name) {
-		return headers.getFirst(name);
+		return requestHeaders.getFirst(name);
 	}
 	
 	public void setContentType (String type) {
-		responseContentType.clear();
-		responseContentType.add(type);
+		responseHeaders.set("Content-Type", type); 
 	}
 	
 	public void setResponseCode(int code) {
 		this.responseCode = code;
+	}
+	
+	/**
+	 * Sets the needed response code and header for causing
+	 * a redirect on the client browser
+	 * @param url The url the client will be redirected to (i.e. /secondpage)
+	 */
+	public void setRedirect(String url) {
+		this.responseCode = 302; // redirect default code
+		responseHeaders.set("Location", url);
 	}
 	
 	/**
