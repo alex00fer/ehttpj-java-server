@@ -77,10 +77,8 @@ public class Main {
 				doc.add(list);
 				doc.add(table);
 				
-				//values.setRedirect("/raw");
 				EHttpCookie c = new EHttpCookie("hello", "Yes! hello world!");
-				c.setMaxAge(604800); //7 days
-				//c.setPath("/shop"); // only for /shop and subpaths
+				c.setMaxAge(604800); // lifespan of 7 days
 				values.addCookie(c);
 				
 				return doc;
