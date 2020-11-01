@@ -3,6 +3,9 @@ package io.github.alex00fer.httpjes.html.internal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for containing a list of {@link EHtmlElementRaw} html elements
+ */
 public class EHtmlElementList {
 	
 	List<EHtmlElementRaw> elements = new ArrayList<EHtmlElementRaw>();
