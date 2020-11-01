@@ -40,8 +40,8 @@ public abstract class EHttpRawPage implements HttpHandler {
 	public void handle(HttpExchange he) throws IOException {
 		//System.out.println(he.getRequestURI().getRawPath());
 		try {
-			// Read request values
-			// 1. Create the exchange object with access to the http headers
+			// Read request values and save them on the EHttpExchange object
+			// 1. Create the exchange object
 			EHttpExchange exchange = new EHttpExchange(he); // passes the original httpexchange
 			// 2. Read GET parameters
 			URI requestedUri = he.getRequestURI();
@@ -52,12 +52,32 @@ public abstract class EHttpRawPage implements HttpHandler {
             BufferedReader br = new BufferedReader(isr);
             query = br.readLine();
             parseQuery(query, exchange.post);
+            // 4. Load cookies
+            try {
+    			List<String> cookiesRaw = he.getRequestHeaders().get("Cookie");
+    			System.out.println(cookiesRaw);
+    			if (cookiesRaw != null) {
+    				for (String line : cookiesRaw) {
+    					
+    					String[] pairs = line.split(";");
+    					
+    					for (String pairText : pairs) {
+    						String[] pair = pairText.trim().split("=");
+    						exchange.cookies.put(pair[0], URLDecoder.decode(pair[1], "utf-8"));
+    					}
+    				}
+    			}
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    			System.err.println("Failed to load requested cookie(s)");
+    		}
 
 			// Fill stream and prepare headers
 
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			response(outputStream, exchange); // calls abstract response method
 			he.sendResponseHeaders(exchange.responseCode, outputStream.size());
+			
 			// Write to the final output response stream
 
 			OutputStream stream = he.getResponseBody();

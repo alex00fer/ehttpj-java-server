@@ -1,5 +1,6 @@
 package io.github.alex00fer.ehttpj.internal;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Map;
 
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
+
+import io.github.alex00fer.ehttpj.EHttpCookie;
 
 /**
  * An object that contains the values of the http request
@@ -30,6 +33,7 @@ public class EHttpExchange {
 	protected Headers responseHeaders;
 	protected Map<String, Object> get = new HashMap<String, Object>();
 	protected Map<String, Object> post = new HashMap<String, Object>();
+	protected Map<String, String> cookies = new HashMap<String, String>();
 	protected List<String> responseContentType = new ArrayList<String>();
 	protected int responseCode;
 	
@@ -42,6 +46,29 @@ public class EHttpExchange {
 		responseCode = 200; // default response code
 	}
 	
+	/*
+	private void loadCookies() {
+		try {
+			List<String> cookiesRaw = requestHeaders.get("Cookie");
+			System.out.println(cookiesRaw);
+			if (cookiesRaw != null) {
+				for (String line : cookiesRaw) {
+					
+					String[] pairs = line.split(";");
+					
+					for (String pairText : pairs) {
+						String[] pair = pairText.trim().split("=");
+						cookies.put(pair[0], URLDecoder.decode(pair[1], "utf-8"));
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("Failed to load requested cookie(s)");
+		}
+		
+	}
+	*/
 	public String get (String key) {
 		if (get.containsKey(key))
 			return get.get(key).toString();
@@ -72,6 +99,18 @@ public class EHttpExchange {
 			return null;
 	}
 	
+	public boolean hasCookie(String name) {
+		return cookies.containsKey(name);
+	}
+	
+	public String getCookie(String name) {
+		return cookies.get(name);
+	}
+	
+	public void addCookie(EHttpCookie cookie) {
+		responseHeaders.add("Set-Cookie", cookie.toString());
+	}
+	
 	public String headerFirst(String name) {
 		return requestHeaders.getFirst(name);
 	}
@@ -85,9 +124,9 @@ public class EHttpExchange {
 	}
 	
 	/**
-	 * Sets the needed response code and header for causing
+	 * Sets the needed response code and Location header for causing
 	 * a redirect on the client browser
-	 * @param url The url the client will be redirected to (i.e. /secondpage)
+	 * @param url The url the client will be redirected to (i.e. /account/login)
 	 */
 	public void setRedirect(String url) {
 		this.responseCode = 302; // redirect default code

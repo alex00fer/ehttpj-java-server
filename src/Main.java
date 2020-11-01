@@ -33,6 +33,11 @@ public class Main {
 						os.write(" ".getBytes());
 						os.write(o.toString().getBytes());
 					}
+					os.write("<h3> Has cookie 'hello'? </h3>".getBytes());
+					if ($.hasCookie("hello")) 
+						os.write($.getCookie("hello").getBytes());
+					else
+						os.write("No".getBytes());
 					$.setContentType("text/html");
 					
 				} catch (IOException e) {
@@ -72,7 +77,11 @@ public class Main {
 				doc.add(list);
 				doc.add(table);
 				
-				values.setRedirect("/raw");
+				//values.setRedirect("/raw");
+				EHttpCookie c = new EHttpCookie("hello", "Yes! hello world!");
+				c.setMaxAge(604800); //7 days
+				//c.setPath("/shop"); // only for /shop and subpaths
+				values.addCookie(c);
 				
 				return doc;
 			}
