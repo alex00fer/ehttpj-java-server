@@ -3,18 +3,18 @@ import java.io.OutputStream;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import io.github.alex00fer.httpjes.*;
-import io.github.alex00fer.httpjes.html.EHtmlFrame;
-import io.github.alex00fer.httpjes.html.EHtmlHeading;
-import io.github.alex00fer.httpjes.html.EHtmlHyperlink;
-import io.github.alex00fer.httpjes.html.EHtmlImage;
-import io.github.alex00fer.httpjes.html.EHtmlList;
-import io.github.alex00fer.httpjes.html.EHtmlParagraph;
-import io.github.alex00fer.httpjes.html.EHtmlRoot;
-import io.github.alex00fer.httpjes.html.EHtmlTable;
-import io.github.alex00fer.httpjes.html.internal.EHtml;
-import io.github.alex00fer.httpjes.internal.EHttpExchange;
-import io.github.alex00fer.httpjes.internal.EHttpRawPage;
+import io.github.alex00fer.ehttpj.*;
+import io.github.alex00fer.ehttpj.html.EHtmlFrame;
+import io.github.alex00fer.ehttpj.html.EHtmlHeading;
+import io.github.alex00fer.ehttpj.html.EHtmlHyperlink;
+import io.github.alex00fer.ehttpj.html.EHtmlImage;
+import io.github.alex00fer.ehttpj.html.EHtmlList;
+import io.github.alex00fer.ehttpj.html.EHtmlParagraph;
+import io.github.alex00fer.ehttpj.html.EHtmlRoot;
+import io.github.alex00fer.ehttpj.html.EHtmlTable;
+import io.github.alex00fer.ehttpj.html.internal.EHtml;
+import io.github.alex00fer.ehttpj.internal.EHttpExchange;
+import io.github.alex00fer.ehttpj.internal.EHttpRawPage;
 
 public class Main {
 
