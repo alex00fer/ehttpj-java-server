@@ -14,11 +14,12 @@ import com.sun.net.httpserver.HttpServer;
  * Then you probably will probably want to create static access to files (images or CSS files for example)
  * through the web. To do so you can have to add routing with a {@link EHttpStatic} object. <br><br>
  * 
- * A simple usage example of this library:
+ * A simple usage example:
  * <pre>
  * {@code
- * Set<String> s;
- * System.out.println(s);
+ * EHttpServer server = new EHttpServer(80);
+ * server.addRouting("/", new MyFirstPage());
+ * server.start();
  * }
  * </pre>
  */
