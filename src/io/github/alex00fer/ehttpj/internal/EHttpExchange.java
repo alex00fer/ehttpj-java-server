@@ -15,7 +15,7 @@ import io.github.alex00fer.ehttpj.EHttpCookie;
  * An object that contains the values of the http request
  * and the values assigned for the response.<br><br>
  * 
- * This class gives you access to the header, get and post values of the 
+ * This class gives you access to the header, get, post and cookies of the 
  * request. Use the given methods to access them.<br>
  * 
  * If you need deeper control you can get access to the underlying HttpExchange,
@@ -23,7 +23,7 @@ import io.github.alex00fer.ehttpj.EHttpCookie;
  * 
  * 
  * Use setContentType() to change the MIME of the response (text/html by default).<br>
- * Use setResponseCode() to change the responsee code (200 by default).<br>
+ * Use setResponseCode() to change the response code (200 by default).<br>
  * 
  * If you want to redirect the user to another location use setRedirect(url)
  */
@@ -46,29 +46,6 @@ public class EHttpExchange {
 		responseCode = 200; // default response code
 	}
 	
-	/*
-	private void loadCookies() {
-		try {
-			List<String> cookiesRaw = requestHeaders.get("Cookie");
-			System.out.println(cookiesRaw);
-			if (cookiesRaw != null) {
-				for (String line : cookiesRaw) {
-					
-					String[] pairs = line.split(";");
-					
-					for (String pairText : pairs) {
-						String[] pair = pairText.trim().split("=");
-						cookies.put(pair[0], URLDecoder.decode(pair[1], "utf-8"));
-					}
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("Failed to load requested cookie(s)");
-		}
-		
-	}
-	*/
 	public String get (String key) {
 		if (get.containsKey(key))
 			return get.get(key).toString();

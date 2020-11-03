@@ -54,26 +54,26 @@ public class EHtmlForm extends EHtmlElement {
 		
 		EHtmlElement input = new EHtmlElement("input");
 		input.setAttribute("type", inputType);
+		input.setAttribute("name", name);
 		
 		return newLabeledElement(labelText, input);
 	}
 	
 	/**
 	 * Creates a submit button
-	 * @param text The text of the button (e.g. Send)
-	 * @param name The name for this button that will be sent
-	 * to the server request. Useful to identify on the server
+	 * @param text The text of the button (e.g. Send). This value will be sent
+	 * in the server request under the name '__action'. Useful to identify on the server
 	 * which button was the one clicked.
 	 * @return Returns the container just added that has the input button
 	 */
-	public EHtmlContainer newSubmitButton(String text, String name) {
+	public EHtmlContainer newSubmitButton(String text) {
 		
 		EHtmlContainer cont = new EHtmlContainer();
 		
 		EHtmlElement input = new EHtmlElement("input");
 		input.setAttribute("type", "submit");
+		input.setAttribute("name", "__action");
 		input.setAttribute("value", text);
-		input.setAttribute("name", name);
 		
 		cont.add(input);
 		this.add(cont);

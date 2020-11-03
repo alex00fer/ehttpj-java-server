@@ -55,7 +55,6 @@ public abstract class EHttpRawPage implements HttpHandler {
             // 4. Load cookies
             try {
     			List<String> cookiesRaw = he.getRequestHeaders().get("Cookie");
-    			System.out.println(cookiesRaw);
     			if (cookiesRaw != null) {
     				for (String line : cookiesRaw) {
     					

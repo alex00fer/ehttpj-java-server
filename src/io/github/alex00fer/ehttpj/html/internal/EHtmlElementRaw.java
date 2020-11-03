@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * Base abstract class for EHtml elements. <br>
+ * Contains the tag and attributes of the element and implements EHtml.
+ */
 public abstract class EHtmlElementRaw implements EHtml{
 	
 	HashMap<String, String> attributes = new HashMap<String, String>();
