@@ -2,7 +2,6 @@
 EHttpJ is a **Java library** that provides an embedded HTTP server built on top of the [com.sun.net.httpserver](https://docs.oracle.com/javase/8/docs/jre/api/net/httpserver/spec/com/sun/net/httpserver/HttpServer.html)
 
 
-[TOC]
 
 
 ### Features
@@ -33,9 +32,9 @@ import io.github.alex00fer.ehttpj.*
 ```
 import io.github.alex00fer.ehttpj.html.*
 ```
-- `EHtmlRoot` - The root element of any HTML page (the html tag)
-- `EHtmlElement` - A generic customizable HTML element.
-- `EHtmlElementVoid` - A generic customizable HTML void element (a.k.a. self closing tags).
+- `EHtmlRoot` - The root element of any HTML page (includes the doctype declaration and the html, head and body tags)
+- `EHtmlElement` - A generic customizable HTML element with open and closing tags.
+- `EHtmlElementVoid` - A generic customizable HTML void element (a.k.a. self closing tags like for example the img tag).
 - Many others common ready to use elements like `EHtmlHeading` `EHtmlParagraph` `EHtmlImage` `EHtmlForm` `EHtmlTable` `EHtmlHyperlink` `EHtmlList` and many more!
 
 ##### The server
@@ -65,7 +64,7 @@ public class MyFirstPage extends EHttpPage {
 		
 		// Root html element that has the head and body elements
 		// This will be the element that will be returned as an EHtml element
-		EHtmlRoot doc = new EHtmlRoot("Hello world!");
+		EHtmlRoot doc = new EHtmlRoot("My first page!");
         
         // Set the page language as recommended per spec
 		doc.setLanguage("en");
@@ -76,13 +75,15 @@ public class MyFirstPage extends EHttpPage {
 		// Add the heading to the root element (its added inside its body)
 		doc.add(heading);
 		
-		// Finally return the root html element
+		// Finally return the root html element with the heading incrusted
 		return doc;
 	}
 }
 ```
 See the included sample for a more complex page.
 
-##### To be added...
+##### To be added next...
 - [ ] Static files access
 - [ ] The EHttpExchange object
+- [ ] Included utitlities
+- [ ] Internal classes
