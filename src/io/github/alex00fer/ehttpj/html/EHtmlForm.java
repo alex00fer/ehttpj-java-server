@@ -60,6 +60,18 @@ public class EHtmlForm extends EHtmlElement {
 	}
 	
 	/**
+	 * Creates a dropdown (aka select) input element with a label and is added to the form
+	 * @param labelText The label text for this input
+	 * @param name The name for this input that will be sent to the server
+	 * @return Returns the created dropdown object so you can add the options yourself
+	 */
+	public EHtmlDropDown newLabeledDropdown(String labelText, String name) {
+		EHtmlDropDown dropdown = new EHtmlDropDown(name);
+		newLabeledElement(labelText, dropdown);
+		return dropdown;
+	}
+	
+	/**
 	 * Creates a submit button
 	 * @param text The text of the button (e.g. Send). This value will be sent
 	 * in the server request under the name '__action'. Useful to identify on the server
