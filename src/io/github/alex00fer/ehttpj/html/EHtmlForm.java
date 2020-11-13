@@ -60,6 +60,25 @@ public class EHtmlForm extends EHtmlElement {
 	}
 	
 	/**
+	 * Creates a text input element with a label and is added to the form
+	 * @param labelText The label text for this input
+	 * @param inputType The type of the input (e.g. text)
+	 * @param name The name for this input that will be sent to the server
+	 * @param value The initial value for this input
+	 * @return Returns the container just added to the form
+	 */
+	public EHtmlContainer newLabeledInput (String labelText, String inputType, String name, String value) {
+		
+		EHtmlElement input = new EHtmlElement("input");
+		input.setAttribute("type", inputType);
+		input.setAttribute("name", name);
+		input.setAttribute("name", name);
+		input.setAttribute("value", value);
+		
+		return newLabeledElement(labelText, input);
+	}
+	
+	/**
 	 * Creates a dropdown (aka select) input element with a label and is added to the form
 	 * @param labelText The label text for this input
 	 * @param name The name for this input that will be sent to the server
