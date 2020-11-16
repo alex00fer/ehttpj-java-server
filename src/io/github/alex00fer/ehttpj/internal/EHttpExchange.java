@@ -71,7 +71,7 @@ public class EHttpExchange {
 
 	public String post(String name) {
 		if (post.containsKey(name))
-			return get.get(name).toString();
+			return post.get(name).toString();
 		else
 			return null;
 	}
